@@ -1,0 +1,5 @@
+com\debug\middleware\server\EventTest.class
+com\debug\middleware\server\RabbitMQTest.class
+com\debug\middleware\server\RedisTest2.class
+com\debug\middleware\server\RedisTest.class
+com\debug\middleware\server\RedPackageTest.class

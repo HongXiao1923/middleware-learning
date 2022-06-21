@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.debug.middleware.model.mapper.ItemMapper">
+    <!--字段映射-->
+    <resultMap id="BaseResultMap" type="com.debug.middleware.model.entity.Item">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, code, name, create_time
+    </sql>
+    <!--根据商品编码查询-->
+    <select id="selectByCode" resultType="com.debug.middleware.model.entity.Item">
+        select <include refid="Base_Column_List"/>
+        from item where code = #{code}
+    </select>
+
+
+</mapper>

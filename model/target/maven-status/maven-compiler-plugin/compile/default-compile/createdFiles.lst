@@ -1,0 +1,12 @@
+com\debug\middleware\model\mapper\ItemMapper.class
+com\debug\middleware\model\mapper\RedDetailMapper.class
+com\debug\middleware\model\mapper\RedRecordMapper.class
+com\debug\middleware\model\entity\User.class
+com\debug\middleware\model\entity\Item.class
+com\debug\middleware\model\mapper\SysLogMapper.class
+com\debug\middleware\model\entity\RedDetail.class
+com\debug\middleware\model\entity\SysLog.class
+com\debug\middleware\model\mapper\UserMapper.class
+com\debug\middleware\model\entity\RedRobRecord.class
+com\debug\middleware\model\entity\RedRecord.class
+com\debug\middleware\model\mapper\RedRobRecordMapper.class
