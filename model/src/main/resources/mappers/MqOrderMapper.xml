@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.debug.middleware.model.mapper.MqOrderMapper">
+    <resultMap id="BaseResultMap" type="com.debug.middleware.model.entity.MqOrder">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="business_time" property="businessTime" jdbcType="TIMESTAMP"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, order_id, business_time, memo
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List" />
+        from mq_order where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from mq_order
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.debug.middleware.model.entity.MqOrder">
+        insert into mq_order (id, order_id, business_time, memo)
+        values( #{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{businessTime,jdbcType=TIMESTAMP}, #{memo,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.debug.middleware.model.entity.MqOrder">
+        insert into mq_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="businessTime != null">
+                business_time,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="businessTime != null">
+                #{businessTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.debug.middleware.model.entity.MqOrder">
+        update mq_order
+        set order_id = #{orderId,jdbcType=INTEGER},
+            business_time = #{businessTime,jdbcType=TIMESTAMP}
+            memo = #{memo,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.debug.middleware.model.entity.MqOrder">
+        update mq_order
+        <set>
+            <if test="userId != null">
+                order_id = #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="businessTime != null">
+                business_time = #{businessTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id, jdbcType=INTEGER}
+    </update>
+
+</mapper>

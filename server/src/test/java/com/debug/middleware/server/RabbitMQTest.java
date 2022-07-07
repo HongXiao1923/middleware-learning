@@ -1,10 +1,11 @@
 package com.debug.middleware.server;
 
-import com.debug.middleware.server.rabbitmq.consumer.KnowledgePublisher;
+import com.debug.middleware.server.rabbitmq.entity.DeadInfo;
 import com.debug.middleware.server.rabbitmq.entity.EventInfo;
 import com.debug.middleware.server.rabbitmq.entity.KnowledgeInfo;
 import com.debug.middleware.server.rabbitmq.entity.Person;
 import com.debug.middleware.server.rabbitmq.publisher.BasicPublisher;
+import com.debug.middleware.server.rabbitmq.publisher.DeadPublisher;
 import com.debug.middleware.server.rabbitmq.publisher.KnowledgeManualPublisher;
 import com.debug.middleware.server.rabbitmq.publisher.ModelPublisher;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,10 +39,13 @@ public class RabbitMQTest {
     private ModelPublisher modelPublisher;
     //定义自动确认消费的生产者实例
     @Autowired
-    private KnowledgePublisher knowledgePublisher;
+    private KnowledgeManualPublisher.KnowledgePublisher knowledgePublisher;
     //定义手动确认消费的生产者实例
     @Autowired
     private KnowledgeManualPublisher knowledgeManualPublisher;
+    //定义死信队列生产者实例
+    @Autowired
+    private DeadPublisher deadPublisher;
 
     /**
      * 用于发送消息的测试方法
@@ -134,5 +138,20 @@ public class RabbitMQTest {
         info.setCode("manual");
         info.setMode("基于MANUAL的消息确认消费模式");
         knowledgeManualPublisher.sendManualMsg(info);
+    }
+
+    /**
+     * 死信队列消费模型生产者实例
+     * @throws Exception
+     */
+    @Test
+    public void test8() throws Exception{
+        //定义实体消息
+        DeadInfo info = new DeadInfo(1, "~~~这是第一则消息~~~");
+        deadPublisher.sendMsg(info);
+        info = new DeadInfo(2, "~~~这是第二则消息~~~");
+        deadPublisher.sendMsg(info);
+        //等待20s再介绍，目的是为了能看到消费者监听消费真正队列中的消息
+        Thread.sleep(20000);
     }
 }

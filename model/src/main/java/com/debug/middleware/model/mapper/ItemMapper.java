@@ -12,10 +12,15 @@ import org.apache.ibatis.annotations.Param;
 public interface ItemMapper {
     //添加商品信息的增删改查方法
     int deleteByPrimaryKey(Integer id);
+
     int insert(Item record);
+
     int insertSelective(Item record);
+
     Item selectByPrimaryKey(Integer id);
+
     int updateByPrimaryKey(Item record);
+
     int updateByPrimaryKeySelective(Item record);
 
     //根据商品编号查询商品信息
