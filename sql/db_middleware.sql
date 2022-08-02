@@ -81,3 +81,50 @@ CREATE TABLE mq_order(
     memo varchar(255) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='RabbitMQ失效下单历史记录表';
+
+#用户账户余额记录表
+CREATE TABLE user_account (
+    id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    user_id int(11) NOT NULL COMMENT '用户账户id',
+    amount decimal(10,4) NOT NULL COMMENT '账户余额',
+    version int(11) DEFAULT '1' COMMENT '版本号字段',
+    is_active tinyint(11) DEFAULT '1' COMMENT '是否失效（1=是；0=否）',
+    PRIMARY KEY(id),
+    UNIQUE KEY idx_user_id (user_id) USING BTREE
+)ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户账户余额记录表';
+
+#金额记录表
+CREATE TABLE user_account_record (
+    id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    account_id int(11) NOT NULL COMMENT '账户表主键id',
+    money decimal(10,4) DEFAULT NULL COMMENT '提现成功时记录的金额',
+    create_time datetime DEFAULT NULL,
+    PRIMARY KEY(id)
+)ENGINE=InnoDB AUTO_INCREMENT=360 DEFAULT CHARSET=utf8 COMMENT='用户每次成功提取时的金额记录表';
+
+#用户注册信息表
+CREATE TABLE user_reg(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    user_name varchar(255) NOT NULL COMMENT '用户名',
+    password varchar(255) NOT NULL COMMENT '密码',
+    create_time datetime DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户注册信息表';
+
+#书籍库存记录表
+CREATE TABLE book_stock(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    book_no varchar(255) NOT NULL COMMENT '书籍编号',
+    stock int(11) NOT NULL COMMENT '库存',
+    is_active tinyint(11) DEFAULT '1' COMMENT '是否上架（1=是；0=否）',
+    PRIMARY KEY(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='书籍库存记录表';
+
+#书籍抢购记录表
+CREATE TABLE book_rob(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    user_id int(11) NOT NULL COMMENT '用户ID',
+    book_no varchar(255) NOT NULL COMMENT '书籍编号',
+    rob_time datetime DEFAULT NULL COMMENT '抢购时间',
+    PRIMARY KEY(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='书籍抢购记录表';
